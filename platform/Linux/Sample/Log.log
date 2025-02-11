@@ -1,0 +1,87 @@
+mkdir -p ./release
+mkdir -p ./debug
+mkdir -p ../../../bin/Linux
+gcc -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -I../../../platform/Sample -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./release/main.o ../../../src/Sample/main.c
+../../../src/Sample/main.c: In function ‘main’:
+../../../src/Sample/main.c:153:9: warning: unused variable ‘nIndex’ [-Wunused-variable]
+  153 |     int nIndex;
+      |         ^~~~~~
+../../../src/Sample/main.c:136:15: warning: unused variable ‘pSTBBodyResult’ [-Wunused-variable]
+  136 |     STB_BODY *pSTBBodyResult;
+      |               ^~~~~~~~~~~~~~
+../../../src/Sample/main.c:135:9: warning: unused variable ‘nSTBBodyCount’ [-Wunused-variable]
+  135 |     int nSTBBodyCount;
+      |         ^~~~~~~~~~~~~
+../../../src/Sample/main.c:134:15: warning: unused variable ‘pSTBFaceResult’ [-Wunused-variable]
+  134 |     STB_FACE *pSTBFaceResult;
+      |               ^~~~~~~~~~~~~~
+../../../src/Sample/main.c:133:9: warning: unused variable ‘nSTBFaceCount’ [-Wunused-variable]
+  133 |     int nSTBFaceCount;
+      |         ^~~~~~~~~~~~~
+In file included from ../../../src/Sample/main.c:34:
+../../../src/STBApi/STBWrap.h: At top level:
+../../../src/STBApi/STBWrap.h:45:13: warning: ‘GetFrameResult’ declared ‘static’ but never defined [-Wunused-function]
+   45 | static void GetFrameResult(int inActiveFunc, const HVC_RESULT *inResult, STB_FRAME_RESULT *outFrameResult);
+      |             ^~~~~~~~~~~~~~
+gcc -o ../../../bin/Linux/Sample ./release/main.o ./release/HVCApi.o ./release/bitmap_linux.o ./release/uart_linux.o  -L../../../import/lib -lpthread -lrt -lm
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../platform/Sample -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./debug/main.o ../../../src/Sample/main.c
+../../../src/Sample/main.c: In function ‘main’:
+../../../src/Sample/main.c:153:9: warning: unused variable ‘nIndex’ [-Wunused-variable]
+  153 |     int nIndex;
+      |         ^~~~~~
+../../../src/Sample/main.c:136:15: warning: unused variable ‘pSTBBodyResult’ [-Wunused-variable]
+  136 |     STB_BODY *pSTBBodyResult;
+      |               ^~~~~~~~~~~~~~
+../../../src/Sample/main.c:135:9: warning: unused variable ‘nSTBBodyCount’ [-Wunused-variable]
+  135 |     int nSTBBodyCount;
+      |         ^~~~~~~~~~~~~
+../../../src/Sample/main.c:134:15: warning: unused variable ‘pSTBFaceResult’ [-Wunused-variable]
+  134 |     STB_FACE *pSTBFaceResult;
+      |               ^~~~~~~~~~~~~~
+../../../src/Sample/main.c:133:9: warning: unused variable ‘nSTBFaceCount’ [-Wunused-variable]
+  133 |     int nSTBFaceCount;
+      |         ^~~~~~~~~~~~~
+In file included from ../../../src/Sample/main.c:34:
+../../../src/STBApi/STBWrap.h: At top level:
+../../../src/STBApi/STBWrap.h:45:13: warning: ‘GetFrameResult’ declared ‘static’ but never defined [-Wunused-function]
+   45 | static void GetFrameResult(int inActiveFunc, const HVC_RESULT *inResult, STB_FRAME_RESULT *outFrameResult);
+      |             ^~~~~~~~~~~~~~
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../platform/Sample -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./debug/HVCApi.o ../../../src/HVCApi/HVCApi.c
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../platform/Sample -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./debug/bitmap_linux.o ../../../src/bmp/bitmap_linux.c
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../platform/Sample -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./debug/uart_linux.o ../../../src/uart/uart_linux.c
+../../../src/uart/uart_linux.c: In function ‘com_close’:
+../../../src/uart/uart_linux.c:76:19: warning: comparison between pointer and integer
+   76 |     if (m_hThread != NULL)
+      |                   ^~
+../../../src/uart/uart_linux.c: In function ‘com_init’:
+../../../src/uart/uart_linux.c:160:46: warning: passing argument 3 of ‘pthread_create’ from incompatible pointer type [-Wincompatible-pointer-types]
+  160 |     rtn = pthread_create(&m_hThread, &tattr, ExecThread, NULL);
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              void (*)(void *)
+In file included from ../../../src/uart/uart_linux.c:24:
+/usr/include/pthread.h:204:36: note: expected ‘void * (*)(void *)’ but argument is of type ‘void (*)(void *)’
+  204 |                            void *(*__start_routine) (void *),
+      |                            ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+../../../src/uart/uart_linux.c:91:9: warning: variable ‘rtn’ set but not used [-Wunused-but-set-variable]
+   91 |     int rtn;
+      |         ^~~
+../../../src/uart/uart_linux.c: In function ‘com_send’:
+../../../src/uart/uart_linux.c:169:10: warning: unused variable ‘strBuf’ [-Wunused-variable]
+  169 |     char strBuf[256];
+      |          ^~~~~~
+../../../src/uart/uart_linux.c:167:9: warning: unused variable ‘i’ [-Wunused-variable]
+  167 |     int i;
+      |         ^
+../../../src/uart/uart_linux.c: In function ‘_com_recv’:
+../../../src/uart/uart_linux.c:196:10: warning: unused variable ‘strBuf’ [-Wunused-variable]
+  196 |     char strBuf[256];
+      |          ^~~~~~
+../../../src/uart/uart_linux.c:193:9: warning: unused variable ‘i’ [-Wunused-variable]
+  193 |     int i;
+      |         ^
+../../../src/uart/uart_linux.c: In function ‘ExecThread’:
+../../../src/uart/uart_linux.c:231:23: warning: unused parameter ‘pParam’ [-Wunused-parameter]
+  231 | void ExecThread(void *pParam)
+      |                 ~~~~~~^~~~~~
+gcc -o ../../../bin/Linux/Sample_d ./debug/main.o ./debug/HVCApi.o ./debug/bitmap_linux.o ./debug/uart_linux.o  -L../../../import/lib -lpthread -lrt -lm

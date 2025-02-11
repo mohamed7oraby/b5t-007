@@ -1,0 +1,71 @@
+mkdir -p ./release
+mkdir -p ./debug
+mkdir -p ../../../bin/Linux
+gcc -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/FR_Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./release/FR_main.o ../../../src/FR_Sample/FR_main.c
+../../../src/FR_Sample/FR_main.c: In function ‘main’:
+../../../src/FR_Sample/FR_main.c:236:72: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+  236 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(HVC_RESULT));
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~
+      |                                                                                                              |
+      |                                                                                                              long unsigned int
+../../../src/FR_Sample/FR_main.c:79:47: note: in definition of macro ‘sprintf_s’
+   79 | #define sprintf_s(buf, num, ...) sprintf(buf, __VA_ARGS__)
+      |                                               ^~~~~~~~~~~
+../../../src/FR_Sample/FR_main.c:236:104: note: format string is defined here
+  236 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(HVC_RESULT));
+      |                                                                                                     ~~~^
+      |                                                                                                        |
+      |                                                                                                        unsigned int
+      |                                                                                                     %08lx
+../../../src/FR_Sample/FR_main.c:245:72: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+  245 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(UINT8) * (HVC_ALBUM_SIZE_MAX + 8));
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                                              |
+      |                                                                                                              long unsigned int
+../../../src/FR_Sample/FR_main.c:79:47: note: in definition of macro ‘sprintf_s’
+   79 | #define sprintf_s(buf, num, ...) sprintf(buf, __VA_ARGS__)
+      |                                               ^~~~~~~~~~~
+../../../src/FR_Sample/FR_main.c:245:104: note: format string is defined here
+  245 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(UINT8) * (HVC_ALBUM_SIZE_MAX + 8));
+      |                                                                                                     ~~~^
+      |                                                                                                        |
+      |                                                                                                        unsigned int
+      |                                                                                                     %08lx
+../../../src/FR_Sample/FR_main.c:159:9: warning: unused variable ‘nIndex’ [-Wunused-variable]
+  159 |     int nIndex;
+      |         ^~~~~~
+gcc -o ../../../bin/Linux/FRSample ./release/FR_main.o ./release/Album.o ./release/HVCApi.o ./release/bitmap_linux.o ./release/uart_linux.o  -L../../../import/lib -lpthread -lrt -lm -lpigpio 
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/FR_Sample -I../../../src/uart -I../../../src/STBApi -I../../../import/include -I. -o ./debug/FR_main.o ../../../src/FR_Sample/FR_main.c
+../../../src/FR_Sample/FR_main.c: In function ‘main’:
+../../../src/FR_Sample/FR_main.c:236:72: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+  236 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(HVC_RESULT));
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~
+      |                                                                                                              |
+      |                                                                                                              long unsigned int
+../../../src/FR_Sample/FR_main.c:79:47: note: in definition of macro ‘sprintf_s’
+   79 | #define sprintf_s(buf, num, ...) sprintf(buf, __VA_ARGS__)
+      |                                               ^~~~~~~~~~~
+../../../src/FR_Sample/FR_main.c:236:104: note: format string is defined here
+  236 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(HVC_RESULT));
+      |                                                                                                     ~~~^
+      |                                                                                                        |
+      |                                                                                                        unsigned int
+      |                                                                                                     %08lx
+../../../src/FR_Sample/FR_main.c:245:72: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+  245 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(UINT8) * (HVC_ALBUM_SIZE_MAX + 8));
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                                              |
+      |                                                                                                              long unsigned int
+../../../src/FR_Sample/FR_main.c:79:47: note: in definition of macro ‘sprintf_s’
+   79 | #define sprintf_s(buf, num, ...) sprintf(buf, __VA_ARGS__)
+      |                                               ^~~~~~~~~~~
+../../../src/FR_Sample/FR_main.c:245:104: note: format string is defined here
+  245 |             sprintf_s(&pStr[strlen(pStr)], LOGBUFFERSIZE-strlen(pStr), "\nMemory Allocation Error : %08x\n", sizeof(UINT8) * (HVC_ALBUM_SIZE_MAX + 8));
+      |                                                                                                     ~~~^
+      |                                                                                                        |
+      |                                                                                                        unsigned int
+      |                                                                                                     %08lx
+../../../src/FR_Sample/FR_main.c:159:9: warning: unused variable ‘nIndex’ [-Wunused-variable]
+  159 |     int nIndex;
+      |         ^~~~~~
+gcc -o ../../../bin/Linux/FRSample_d ./debug/FR_main.o ./debug/Album.o ./debug/HVCApi.o ./debug/bitmap_linux.o ./debug/uart_linux.o  -L../../../import/lib -lpthread -lrt -lm -lpigpio 

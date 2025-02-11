@@ -1,0 +1,15 @@
+mkdir -p ./release
+mkdir -p ./debug
+mkdir -p ../../../bin/Linux
+gcc -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I. -o ./release/register_main.o ../../../src/FR_Sample/register_main.c
+../../../src/FR_Sample/register_main.c: In function ‘main’:
+../../../src/FR_Sample/register_main.c:154:38: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  154 |         for ( inRate = 0; (int)inRate<(sizeof(listBaudRate)/sizeof(int)); inRate++ ) {
+      |                                      ^
+gcc -o ../../../bin/Linux/Register ./release/register_main.o ./release/Album.o ./release/HVCApi.o ./release/bitmap_linux.o ./release/uart_linux.o  -lpthread -lrt -lm
+gcc -g -c -Os -fPIC -Wall -W -DLINUX_CC -DUNICODE -DHVC_DEBUG -I../../../src -I../../../src/bmp -I../../../src/HVCApi -I../../../src/Sample -I../../../src/uart -I. -o ./debug/register_main.o ../../../src/FR_Sample/register_main.c
+../../../src/FR_Sample/register_main.c: In function ‘main’:
+../../../src/FR_Sample/register_main.c:154:38: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  154 |         for ( inRate = 0; (int)inRate<(sizeof(listBaudRate)/sizeof(int)); inRate++ ) {
+      |                                      ^
+gcc -o ../../../bin/Linux/Register_d ./debug/register_main.o ./debug/Album.o ./debug/HVCApi.o ./debug/bitmap_linux.o ./debug/uart_linux.o  -lpthread -lrt -lm
