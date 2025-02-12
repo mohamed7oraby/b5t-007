@@ -55,7 +55,7 @@
 #define FACE_POSE_DEFAULT                    0            /* Face Detection facial pose (frontal face)*/
 #define FACE_ANGLE_DEFAULT                   0            /* Face Detection roll angle (�}15��)*/
 
-#define REGISTER_USERID_NUMBER               2            /* Registered user ID number */
+#define REGISTER_USERID_NUMBER               3            /* Registered user ID number */
 /*MOOOO IMP*/
 /*I changed the ID and registered the IDs manually 1 and 3 are portraits 2 is me*/
 
